@@ -1,5 +1,7 @@
 #!/bin/bash
 
+userid=$(id -u)
+
 root_check(){
 
     if [ $userid -ne 0 ]; then
