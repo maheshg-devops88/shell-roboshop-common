@@ -2,7 +2,7 @@
 
 userid=$(id -u)
 
-root_check(){
+root_check() {
 
     if [ $userid -ne 0 ]; then
        echo "Please run the script sudo access"
@@ -10,9 +10,14 @@ root_check(){
     fi 
 }
 
+LOG_DIR() {
+
+mkdir -p $LOG_FOLDER
+VALIDATE $? "LOG directory creation"
+}
 mongodb_installation () {
     cp mongo.repo /etc/yum.repos.d/
-    VALIDATE $? "Copy Process"
+    VALIDATE $? "Copy mongo.repo to yum.repos.d"
 
     dnf install mongodb-org -y  &>> $LOG_FILE
     VALIDATE $? "mongodb Installation"
