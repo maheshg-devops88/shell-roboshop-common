@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./common.sh
+source ./01.common.sh
 
 userid=$(id -u)
 LOG_FOLDER=/var/log/shell-roboshop
