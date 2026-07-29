@@ -22,6 +22,6 @@ nodejs_install
 
 roboshop_user
 
-Service_Enable
-
 app_install
+
+Service_Enable
