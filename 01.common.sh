@@ -108,3 +108,14 @@ VALIDATE $? "Install dependencies"
 cp $WRK_DIR/$SERVICE.service /etc/systemd/system/
 VALIDATE $? "Copy $SERVICE.service to /etc/systemd/system/"
 }
+
+nginx_install() {
+
+    dnf module disable nginx -y
+    VALIDATE $? "Disable module nginx"
+    dnf module enable nginx:1.24 -y
+    VALIDATE $? "Enable module nginx"
+    dnf install nginx -y
+    VALIDATE $? "Install nginx"
+    
+}
