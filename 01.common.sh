@@ -11,7 +11,7 @@ root_check() {
 }
 
 VALIDATE() {
-if [ $1 == 0 ]; then
+if [ $1 -eq 0 ]; then
    echo "$2.....Success" 
  else
    echo "$2.....Failure"
