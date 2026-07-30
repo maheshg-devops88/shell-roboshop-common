@@ -111,11 +111,13 @@ VALIDATE $? "Copy $SERVICE.service to /etc/systemd/system/"
 
 nginx_install() {
 
-    dnf module disable nginx -y
+    dnf module disable nginx -y &>> $LOG_FILE
     VALIDATE $? "Disable module nginx"
-    dnf module enable nginx:1.24 -y
+
+    dnf module enable nginx:1.24 -y &>> $LOG_FILE
     VALIDATE $? "Enable module nginx"
-    dnf install nginx -y
+
+    dnf install nginx -y &>> $LOG_FILE
     VALIDATE $? "Install nginx"
-    
+
 }
