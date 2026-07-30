@@ -10,13 +10,9 @@ root_check() {
     fi 
 }
 
-
-
-
 LOG_DIR() {
-
-mkdir -p $LOG_FOLDER
-VALIDATE $? "LOG directory creation"
+    mkdir -p $LOG_FOLDER
+    VALIDATE $? "LOG directory creation"
 }
 
 
