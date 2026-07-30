@@ -32,8 +32,6 @@ VALIDATE $? "mvn to Clean package"
 mv target/shipping-1.0.jar shipping.jar
 VALIDATE $? "move shipping.jar from target to /app"
 
-Service_Enable
-
 dnf install mysql -y &>> $LOG_FILE
 VALIDATE $? "Install mysql"
 
@@ -49,5 +47,4 @@ else
     echo "Schema cities already exists. Skipping installation."
 fi
 
-systemctl restart shipping &>> $LOG_FILE
-VALIDATE $? "shipping Service Started"
+Service_Enable
