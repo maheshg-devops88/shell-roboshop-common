@@ -21,8 +21,6 @@ LOG_DIR
 
 nginx_install
 
-
-
 rm -rf /usr/share/$SERVICE/html/*  &>> $LOG_FILE
 VALIDATE $? "Remove default html file"
 
@@ -32,7 +30,6 @@ VALIDATE $? "download frontend.zip file to tmp Dir"
 cd /usr/share/$SERVICE/html 
 unzip /tmp/frontend.zip &>> $LOG_FILE
 VALIDATE $? "unzip frontend.zip to /app"
-
 
 rm -rf /etc/$SERVICE/$SERVICE.conf &>> $LOG_FILE
 VALIDATE $? "Remove $SERVICE.conf file"

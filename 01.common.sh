@@ -10,6 +10,14 @@ root_check() {
     fi 
 }
 
+VALIDATE() {
+if [ $1 == 0 ]; then
+   echo "$2.....Success" 
+ else
+   echo "$2.....Failure"
+fi
+}
+
 LOG_DIR() {
     mkdir -p $LOG_FOLDER
     VALIDATE $? "LOG directory creation"
@@ -120,4 +128,19 @@ nginx_install() {
     dnf install nginx -y &>> $LOG_FILE
     VALIDATE $? "Install nginx"
 
+}
+
+mysql_install() {
+
+    dnf install mysql-server -y  &>> $LOG_FILE
+    VALIDATE $? "Install mysql-server"
+
+    systemctl enable mysqld  &>> $LOG_FILE
+    VALIDATE $? "Enable mysqld service"
+
+    systemctl start mysqld &>> $LOG_FILE
+    VALIDATE $? "Start mysqld service"
+
+    mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
+    VALIDATE $? "Change sql root password"
 }
