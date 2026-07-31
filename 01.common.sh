@@ -104,7 +104,8 @@ cd /app
 unzip /tmp/$SERVICE.zip &>> $LOG_FILE
 VALIDATE $? "unzip $SERVICE.zip to /app"
 
-
+npm install &>> $LOG_FILE
+VALIDATE $? "Install dependencies"
 
 cp $WRK_DIR/$SERVICE.service /etc/systemd/system/
 VALIDATE $? "Copy $SERVICE.service to /etc/systemd/system/"
