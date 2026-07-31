@@ -135,3 +135,86 @@ mysql_install() {
     mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
     VALIDATE $? "Change sql root password"
 }
+
+mvn_install() {
+
+        dnf install maven -y &>> $LOG_FILE
+        VALIDATE $? "Install maven"
+
+        rm -rf /app
+        VALIDATE $? "remove /app Dir if exists"
+
+        mkdir -p /app
+        VALIDATE $? "created directory /app"
+
+        curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $LOG_FILE
+        VALIDATE $? "download user.zip file to tmp Dir"
+
+        cd /app
+        unzip /tmp/shipping.zip &>> $LOG_FILE
+        VALIDATE $? "unzip shipping.zip to /app"
+
+        mvn clean package 
+        VALIDATE $? "mvn to Clean package"
+
+        mv target/shipping-1.0.jar shipping.jar
+        VALIDATE $? "move shipping.jar from target to /app"
+
+        cp $WRK_DIR/shipping.service /etc/systemd/system/
+        VALIDATE $? "Copy shipping.service to /etc/systemd/system/"
+}
+
+
+python_install() {
+
+        dnf install python3 gcc python3-devel -y
+        VALIDATE $? "Install python"
+
+        rm -rf /app
+        VALIDATE $? "remove /app Dir if exists"
+
+        mkdir -p /app
+        VALIDATE $? "created directory /app"
+
+
+        curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip 
+        VALIDATE $? "download payment.zip file to tmp Dir"
+
+        cd /app 
+        unzip /tmp/payment.zip
+        VALIDATE $? "unzip payment.zip to /app"
+
+
+        pip3 install -r requirements.txt
+        VALIDATE $? "Install requirements"
+
+        cp $WRK_DIR/payment.service /etc/systemd/system
+        VALIDATE $? "Copy payment.service"
+}
+
+golang_install() {
+
+        dnf install golang -y
+        VALIDATE $? "Install golang"
+
+        rm -rf /app
+        VALIDATE $? "remove /app Dir if exists"
+
+        mkdir -p /app
+        VALIDATE $? "created directory /app"
+
+        curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip  &>> $LOG_FILE
+        VALIDATE $? "download user.zip file to tmp Dir"
+
+        cd /app
+        unzip /tmp/dispatch.zip &>> $LOG_FILE
+        VALIDATE $? "unzip dispatch.zip to /app"
+
+        go mod init dispatch
+        go get 
+        go build
+
+
+        cp $WRK_DIR/dispatch.service /etc/systemd/system
+        VALIDATE $? "Copy dispatch.service"
+}

@@ -1,15 +1,12 @@
 #!/bin/bash
 
-userid=$(id -u)
+source ./01.common.sh
+
 LOG_FOLDER=/var/log/shell-roboshop
 LOG_FILE=/var/log/shell-roboshop/$0.log
 WRK_DIR=$PWD
 
-if [ $userid -ne 0 ]; then
-    
-    echo "Please run the script sudo access"
-    exit 1
-fi 
+root_check
 
 VALIDATE()
 if [ $1 == 0 ]; then
@@ -18,8 +15,7 @@ if [ $1 == 0 ]; then
    echo "$2.....Failure"
 fi
 
-mkdir -p $LOG_FOLDER
-VALIDATE $? "LOG directory creation " 
+LOG_DIR 
 
 cp $WRK_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "Copied rabbitmq.repo to /etc/yum.repos.d"

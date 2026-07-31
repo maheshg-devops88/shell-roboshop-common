@@ -20,20 +20,7 @@ LOG_DIR
 
 roboshop_user
 
-dnf install maven -y &>> $LOG_FILE
-VALIDATE $? "Install maven"
-
-app_install
-
-
-mvn clean package &>> $LOG_FILE
-VALIDATE $? "mvn to Clean package"
-
-mv target/shipping-1.0.jar shipping.jar
-VALIDATE $? "move shipping.jar from target to /app"
-
-dnf install mysql -y &>> $LOG_FILE
-VALIDATE $? "Install mysql"
+mvn_install
 
 # Query the database to check if the schema exists
 DB_EXISTS=$(mysql -h mysql.daws88s.shop -uroot -pRoboShop@1 -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'")
