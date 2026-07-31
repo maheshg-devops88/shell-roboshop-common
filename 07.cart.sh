@@ -18,10 +18,13 @@ fi
 
 LOG_DIR
 
-nodejs_install
-
 roboshop_user
 
+nodejs_install
+
 app_install
+
+npm install &>> $LOG_FILE
+VALIDATE $? "Install dependencies"
 
 Service_Enable
