@@ -22,6 +22,9 @@ roboshop_user
 
 mvn_install
 
+dnf install mysql -y &>> $LOG_FILE
+VALIDATE $? "Install mysql"
+
 # Query the database to check if the schema exists
 DB_EXISTS=$(mysql -h mysql.daws88s.shop -uroot -pRoboShop@1 -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'")
 
