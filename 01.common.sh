@@ -165,10 +165,10 @@ mvn_install() {
         dnf install maven -y &>> $LOG_FILE
         VALIDATE $? "Install maven"
 
-        rm -rf /app
+        rm -rf /app &>> $LOG_FILE
         VALIDATE $? "remove /app Dir if exists"
 
-        mkdir -p /app
+        mkdir -p /app &>> $LOG_FILE
         VALIDATE $? "created directory /app"
 
         curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $LOG_FILE
@@ -178,7 +178,7 @@ mvn_install() {
         unzip /tmp/shipping.zip &>> $LOG_FILE
         VALIDATE $? "unzip shipping.zip to /app"
 
-        mvn clean package 
+        mvn clean package &>> $LOG_FILE
         VALIDATE $? "mvn to Clean package"
 
         mv target/shipping-1.0.jar shipping.jar
