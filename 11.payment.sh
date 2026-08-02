@@ -15,5 +15,4 @@ roboshop_user
 
 python_install
 
-
 Service_Enable
