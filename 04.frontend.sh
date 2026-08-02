@@ -9,7 +9,4 @@ SERVICE=nginx
 root_check
 LOG_DIR
 nginx_install
-
-
-
 Service_Enable
