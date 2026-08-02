@@ -242,3 +242,26 @@ golang_install() {
         cp $WRK_DIR/dispatch.service /etc/systemd/system
         VALIDATE $? "Copy dispatch.service"
 }
+
+rabbitmq_install() {
+
+    cp $WRK_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+    VALIDATE $? "Copied rabbitmq.repo to /etc/yum.repos.d"
+
+    dnf install rabbitmq-server -y
+    VALIDATE $? "rabbitmq-server installation"
+
+    systemctl enable rabbitmq-server
+    VALIDATE $? "Enable rabbitmq service"
+
+    systemctl restart rabbitmq-server
+    VALIDATE $? "Start rabbitmq service"
+
+    if rabbitmqctl list_users | grep -qE "roboshop"; then
+        echo "User 'roboshop' already exists. Skipping creation."
+    else
+        echo "Creating user 'roboshop'..."
+        rabbitmqctl add_user roboshop roboshop123
+        rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+    fi
+}

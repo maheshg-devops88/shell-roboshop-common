@@ -8,6 +8,6 @@ WRK_DIR=$PWD
 
 root_check
 
-LOG_DIR
+LOG_DIR 
 
-mysql_install
+rabbitmq_install
