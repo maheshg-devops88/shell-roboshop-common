@@ -127,7 +127,7 @@ nginx_install() {
 
     dnf install nginx -y &>> $LOG_FILE
     VALIDATE $? "Install nginx"
-    
+
     rm -rf /usr/share/$SERVICE/html/*  &>> $LOG_FILE
     VALIDATE $? "Remove default html file"
 
@@ -139,7 +139,7 @@ nginx_install() {
     VALIDATE $? "unzip frontend.zip to /app"
 
     rm -rf /etc/$SERVICE/$SERVICE.conf &>> $LOG_FILE
-    VALIDATE $? "Remove $SERVICE.conf file"
+    VALIDATE $? "Remove $SERVICE.conf file"                     
 
     cp $WRK_DIR/$SERVICE.conf /etc/$SERVICE/  &>> $LOG_FILE
     VALIDATE $? "Copy $SERVICE.conf file to /etc/$SERVICE/"
